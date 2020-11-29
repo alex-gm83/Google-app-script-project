@@ -39,6 +39,7 @@ function replace_text() {
        body.replaceText("Text", " ");
        body.replaceText("Date:\\s*\\d{2}\\.\\d{2}\\.\\d{4}", "31.10.2020")
        
+    // Text alignment  
        var paragraphs = body.getParagraphs();
        for (var i = 7; i < paragraphs.length; i++) { 
           var paragraph = paragraphs[i];
