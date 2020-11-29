@@ -40,7 +40,7 @@ function replace_text() {
        body.replaceText("Date:\\s*\\d{2}\\.\\d{2}\\.\\d{4}", "31.10.2020")
        
        var paragraphs = body.getParagraphs();
-       for (var i = 7; i < paragraphs.length; i++) { // Starts at 3 to exclude first 4 developer-made paragraphs
+       for (var i = 7; i < paragraphs.length; i++) { 
           var paragraph = paragraphs[i];
           paragraph.setAlignment(DocumentApp.HorizontalAlignment.LEFT)
     }
