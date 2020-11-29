@@ -1,0 +1,48 @@
+function replace_text() {  
+   
+   // Get cell with ID
+   var ss = SpreadsheetApp.getActiveSpreadsheet();
+   var sheet = ss.getSheets()[0];
+   
+   // Returns cell with ID (User will insert his or her folder ID in cell B3)
+   var range = sheet.getRange(3, 2);
+   var values = range.getDisplayValue(); 
+   
+   // Get folder by ID - insert your folder ID
+   var SourceFolder = DriveApp.getFolderById(values); 
+   
+   // Iterate throw all files in folder
+   var Files = SourceFolder.getFiles();
+   while(Files.hasNext()) {
+       var file = Files.next();
+     
+   //  Get all documents ID  
+       var doc = DocumentApp.openById(file.getId());
+       
+   //  Get text body to replace  
+       var body = doc.getBody();
+
+   //  Insert header in document + alignment  
+       var header = body.insertParagraph(0, 'TEXT');
+       header.setAlignment(DocumentApp.HorizontalAlignment.RIGHT)
+       
+   // Text style    
+       var style = {};
+       //style[DocumentApp.Attribute.HORIZONTAL_ALIGNMENT] = DocumentApp.HorizontalAlignment.RIGHT;
+       style[DocumentApp.Attribute.FONT_FAMILY] = 'Arial';
+       style[DocumentApp.Attribute.FONT_SIZE] = 9;
+       style[DocumentApp.Attribute.FOREGROUND_COLOR] = '#000000';
+       body.setAttributes(style)
+       Logger.log(body)
+       
+    // Replacing text   
+       body.replaceText("Text", " ");
+       body.replaceText("Date:\\s*\\d{2}\\.\\d{2}\\.\\d{4}", "31.10.2020")
+       
+       var paragraphs = body.getParagraphs();
+       for (var i = 7; i < paragraphs.length; i++) { // Starts at 3 to exclude first 4 developer-made paragraphs
+          var paragraph = paragraphs[i];
+          paragraph.setAlignment(DocumentApp.HorizontalAlignment.LEFT)
+    }
+  }
+}
