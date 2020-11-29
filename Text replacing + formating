@@ -1,6 +1,6 @@
 function replace_text() {  
    
-   // Get cell with ID
+   // Get speadshhet with ID
    var ss = SpreadsheetApp.getActiveSpreadsheet();
    var sheet = ss.getSheets()[0];
    
